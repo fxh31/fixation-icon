@@ -1,13 +1,9 @@
-
-import { createApp, type App } from 'vue'
+import { createApp } from 'vue'
 import App from './App.vue'
-import './assets/iconfont.js'
 
-createApp(App).mount('#app')
+import Fixa from 'fixation-icon'
 
+const app = createApp(App)
 
-export default {
-  install: (app: App) => {
-    app.component('FixIcon', App)
-  }
-}
+app.use(Fixa)
+app.mount('#app')

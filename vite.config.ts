@@ -1,24 +1,31 @@
 import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfig } from 'vite'
+import path from 'path'
 import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    vue(),
-  ],
+  plugins: [vue()],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./packages', import.meta.url))
     }
   },
   build: {
-    outDir: "dist",
+    outDir: 'dist',
     lib: {
-      entry: "./packages/main.ts",
-      name: 'fixation',
-      formats: ["es", "cjs", "umd"]
+      entry: path.resolve(__dirname, './packages/components/index.ts'),
+      name: 'fixation'
+      // formats: ['es', 'cjs', 'umd']
+    },
+    rollupOptions: {
+      external: ['vue'],
+      output: {
+        globals: {
+          vue: 'Vue'
+        }
+      }
     }
   }
 })
